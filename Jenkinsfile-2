@@ -12,4 +12,3 @@ pipeline {
     }
   }
 }
-#sh 'ansible-playbook -i inventory/mariadb.hosts --private-key=$ANSIBLE_PRIVATE_KEY playbooks/mariadb.yml'
