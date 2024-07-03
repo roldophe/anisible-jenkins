@@ -1,0 +1,14 @@
+---
+#ansible-deployment-api/ansible-deployment-api.yml
+- name: Example Ansible playbook for Handlers
+  hosts: all
+  become: yes
+  remote_user: radomkhoem
+  roles:
+    - custom-role
+#    - nginx-certbot
+#  handlers:
+#    - name: Reload Nginx
+#      service:
+#        name: nginx
+#        state: reloaded
