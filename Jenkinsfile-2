@@ -1,11 +1,26 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Hello') {
-      steps {
-        sh 'ansible-playbook --inventory inventory/ansible-jenkins/hosts ansible-jenkins-playbook.yml'
-      }
+    environment {
+        ANSIBLE_HOSTS_FILE = 'inventory/ansible-jenkins/hosts'
+        ANSIBLE_PRIVATE_KEY_ID = 'SSH_CREDENTIALS_ID'
     }
-  }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: ANSIBLE_PRIVATE_KEY_ID, keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                    sh '''
+                        ansible-playbook --inventory $ANSIBLE_HOSTS_FILE --private-key=$SSH_PRIVATE_KEY ansible-jenkins-playbook.yml
+                    '''
+                }
+            }
+        }
+    }
 }
