@@ -15,6 +15,7 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
+                echo (" SSH: ${ANSIBLE_PRIVATE_KEY_ID}")
                 withCredentials([sshUserPrivateKey(credentialsId: ANSIBLE_PRIVATE_KEY_ID, keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                     sh '''
                         ansible-playbook --inventory $ANSIBLE_HOSTS_FILE --private-key=$SSH_PRIVATE_KEY ansible-jenkins-playbook.yml -vvvv
