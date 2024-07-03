@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         ANSIBLE_HOSTS_FILE = 'inventory/ansible-jenkins/hosts'
-        ANSIBLE_PRIVATE_KEY_ID = 'SSH_CREDENTIALS_ID'
+        ANSIBLE_PRIVATE_KEY_ID = 'SSH_CREDENTIALS'
     }
 
     stages {
